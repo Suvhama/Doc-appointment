@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Body Checkup</title>
+    <link rel="stylesheet" href="/css-styles/global.css">
+    <link rel="stylesheet" href="/css-styles/fullbody.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/icon.png" alt="Medisync Logo">
+            <a href="/index.html" style="text-decoration: none;">
+                <span>MediSync</span>
+            </a>
+        </div>
+    
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    
+        <nav>
+            <a href="/html/topDoctor.html">Top Doctors</a>
+            <a href="/html/bookAppointment.html" class="active">Book Appointment</a>
+            <a href="#">Health Packages</a>
+            <a href="/html/contact.html">Contact</a>
+        </nav>
+    
+        <div class="header-buttons">
+            <div class="login-dropdown">
+                <button class="login-button">Log in <span class="arrow">▼</span></button>
+                <div class="dropdown-content">
+                    <div>
+                        <p>Patients</p>
+                        <a href="./userLogin.html">Log in</a>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>Doctors</p>
+                        <a href="./doctorLogin.html">Log in</a>
+                    </div>
+                </div>
+            </div>            
+            <a href="/html/userSignUp.html" class="sign-up-button">Sign Up</a>
+        </div>
+    </header>
+<!-- Packages -->
+<div class="packagess">
+    <div class="imagess">
+    <img class="packimg" src="/images/doct.jpg" alt="Package One">
+</div>
+    <h2 class="name"> Fullbody Checkup</h2>
+    <p>Included this test by Hamr doctor</p>
+    <button class="packBut">NRs. 14,000</button>
+</div>
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Company</h3>
+            <a href="#">Home</a>
+            <a href="#">Company</a>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <a href="#">Patients</a>
+            <a href="#">Doctors</a>
+            <a href="#">Admin</a>
+        </div>
+        <div class="footer-section">
+            <h3>Services</h3>
+            <a href="#">Book Hospital Appointment</a>
+            <a href="#">Video Consultation</a>
+        </div>
+        <div class="footer-section">
+            <h3>Connect With Us</h3>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>Contact us here</p>
+        </div>
+    </div>
+    <p class="copyright">Copyright © 2025. All Rights Reserved.</p>
+</footer>
+    <script src="/javascript/packages/fullbody.js"></script>
+</body>
+</html>
