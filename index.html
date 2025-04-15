@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css-styles/style.css">
+</head>
+
+<body>
+
+    <!-- header -->
+    <header>
+        <div class="logo">
+            <img src="images/icon.png" alt="Medisync Logo">
+            <a href="/index.html" style="text-decoration: none;">
+                <span>MediSync</span>
+            </a>
+        </div>
+        <nav>
+            <a href="/html/topDoctor.html">Top Doctors</a>
+            <a href="/html/bookAppointment.html" class="active">Book Appointment</a>
+            <a href="#">Health Packages</a>
+            <a href="/html/contact.html">Contact</a>
+        </nav>
+        <div class="header-buttons">
+            <div class="login-dropdown">
+                <button class="login-button" onclick="toggleDropdown()">Log in <span class="arrow">▼</span></button>
+                <div class="dropdown-content">
+                    <div>
+                        <p>Patients</p>
+                        <a href="/html/users/userLogin.html">Log in</a>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>Doctors</p>
+                        <a href="/html/doctors/doctorLogin.html">Log in</a>
+                    </div>
+                </div>
+            </div>
+            <a href="html/users/userSignUp.html" class="sign-up-button">Sign Up</a>
+        </div>
+    </header>
+    <!-- header ending -->
+
+    <!-- hero section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Your Health, Our Priority<br>Book with Ease</h1>
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-stethoscope icon-pulse"></i>
+                        <input type="text" class="search-input" placeholder="Search doctors, conditions, or procedures">
+                    </div>
+                    <div class="location-wrapper">
+                        <i class="fas fa-map-marker-alt icon-pulse"></i>
+                        <input type="text" class="location-input" value="Kathmandu, P3" readonly>
+                    </div>
+                    <button class="search-button">
+                        <i class="fas fa-search icon-pulse"></i> SEARCH
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- hero section end -->
+
+    <!-- how it works sections -->
+    <section class="how-it-works">
+        <h2>How The System Works? Hierarchical menu..</h2>
+        <p>Steps</p>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <i class="fas fa-user-md"></i>
+                <div class="step-line"></div>
+                <p>Find Doctor</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <i class="fas fa-calendar-alt"></i>
+                <div class="step-line"></div>
+                <p>Book a Appointment</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <i class="fas fa-credit-card"></i>
+                <div class="step-line"></div>
+                <p>Pay for Consultation</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <i class="fas fa-laptop"></i>
+                <div class="step-line"></div>
+                <p>Book an appointment</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <i class="fas fa-file-alt"></i>
+                <div class="step-line"></div>
+                <p>Get a report</p>
+            </div>
+        </div>
+    </section>
+    <!-- how it works ends -->
+
+    <!-- top doctor section -->
+    <section class="top-doctors">
+        <h2>Appointment With Top Doctors</h2>
+        <p>200+ experienced medical practitioners available for video consultation and appointment</p>
+        <a href="#" class="view-all-button">View All</a>
+        <div class="doctor-list">
+            <!-- Doctor 1 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status available">Available Now</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status not-available">Not Available</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status available">Available Now</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- top speciality section -->
+    <section class="top-specialities">
+        <h2>Top Searched By Specialities</h2>
+        <p>Consult with top doctor across specialties</p>
+        <a href="#" class="view-all-button">View All</a>
+        <div class="specialities-container">
+            <div class="speciality">
+                <i class="fas fa-eye"></i>
+                <p>Ophthalmology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-heart"></i>
+                <p>Cardiology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-lungs"></i>
+                <p>Pulmonology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-brain"></i>
+                <p>Neurology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-bone"></i>
+                <p>Orthopedics</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-stethoscope"></i>
+                <p>General Medicine</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- user feedback section -->
+    <section class="patient-feedback">
+        <h2>Feedback From Our Patients</h2>
+        <div class="feedback-container">
+            <div class="feedback-card">
+                <div class="profile-image">
+                    <img src="images/doc.avif" alt="Patient Profile">
+                </div>
+                <h3>Suvham Pandey</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>One of the best doctor i have visited so far.....</p>
+                <a href="#">Read More</a>
+            </div>
+
+            <div class="feedback-card">
+                <div class="profile-image">
+                    <img src="images/doc.avif" alt="Patient Profile">
+                </div>
+                <h3>Ranbir Singh</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>EAST OR WEST THIS DOCTOR BEST.....</p>
+                <a href="/html/topDoctor.html">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="#">Home</a>
+                <a href="#">Company</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Patients</a>
+                <a href="#">Doctors</a>
+                <a href="#">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Book Hospital Appointment</a>
+                <a href="#">Video Consultation</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Contact us here</p>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2025. All Rights Reserved.</p>
+    </footer>
+
+    <!-- chat bot -->
+    <!-- Chat Button -->
+    <button class="chat-button" onclick="toggleChat()"><i class="fas fa-comment fa-3x" style="margin-right: 5px;"></i></button>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span>MediSync Chat</span>
+            <span class="close-chat" onclick="toggleChat()">×</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">Hello! How can I assist you today?</div>
+        </div>
+        <div class="chat-suggestions">
+            <button onclick="sendSuggestedMessage('How do I book an appointment?')">Book Appointment</button>
+            <button onclick="sendSuggestedMessage('What are your office hours?')">Office Hours</button>
+            <button onclick="sendSuggestedMessage('How do I contact support?')">Contact Support</button>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.login-dropdown');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            dropdown.classList.toggle('open');
+            dropdownContent.classList.toggle('show');
+        }
+
+        // chat bot section
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatContainer = document.getElementById('chatContainer');
+        let conversationState = {
+            context: null,
+            lastQuestion: null,
+            userName: null
+        };
+
+        function loadChatHistory() {
+            const history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            history.forEach(msg => addMessage(msg.text, msg.type));
+        }
+
+        function saveMessage(text, type) {
+            const history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            history.push({
+                text,
+                type,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('chatHistory', JSON.stringify(history.slice(-50)));
+        }
+
+        function toggleChat() {
+            chatContainer.classList.toggle('active');
+            if (chatContainer.classList.contains('active') && chatBody.children.length <= 1) {
+                loadChatHistory();
+                if (!conversationState.userName) {
+                    setTimeout(() => addMessage("May I have your name to assist you better?", "bot"), 500);
+                }
+            }
+        }
+
+        function addMessage(text, type) {
+            const message = document.createElement('div');
+            message.className = `chat-message ${type}`;
+            message.innerHTML = text;
+            chatBody.appendChild(message);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typing = document.createElement('div');
+            typing.className = 'chat-message typing';
+            typing.textContent = 'MediSync is typing';
+            chatBody.appendChild(typing);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return typing;
+        }
+
+        function removeTypingIndicator(typingElement) {
+            if (typingElement) typingElement.remove();
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            addMessage(message, 'user');
+            saveMessage(message, 'user');
+            chatInput.value = '';
+            const typing = showTypingIndicator();
+            setTimeout(() => {
+                removeTypingIndicator(typing);
+                const response = getBotResponse(message.toLowerCase());
+                if (Array.isArray(response)) {
+                    response.forEach((msg, index) => {
+                        setTimeout(() => {
+                            addMessage(msg, 'bot');
+                            saveMessage(msg, 'bot');
+                        }, index * 1000);
+                    });
+                } else {
+                    addMessage(response, 'bot');
+                    saveMessage(response, 'bot');
+                }
+            }, 1000);
+        }
+
+        function sendSuggestedMessage(message) {
+            chatInput.value = message;
+            sendMessage();
+        }
+
+        function getBotResponse(message) {
+            const responses = {
+                greeting: ['hello', 'hi', 'hey', 'greetings'],
+                goodbye: ['bye', 'goodbye', 'see you', 'later'],
+                appointment: ['book', 'appointment', 'schedule', 'visit'],
+                consultation: ['consult', 'doctor', 'see a doctor', 'talk to doctor', 'meet doctor'],
+                hours: ['hours', 'time', 'open', 'close', 'office hours'],
+                contact: ['contact', 'support', 'help', 'reach'],
+                payment: ['pay', 'payment', 'cost', 'insurance', 'method'],
+                cancel: ['cancel', 'reschedule', 'change', 'modify'],
+                thanks: ['thank', 'thanks', 'appreciate', 'grateful']
+            };
+
+            const detectedKeywords = [];
+            for (const [category, keywords] of Object.entries(responses)) {
+                if (keywords.some(keyword => message.includes(keyword))) {
+                    detectedKeywords.push(category);
+                }
+            }
+
+            if (conversationState.context === 'askingName' && !conversationState.userName) {
+                conversationState.userName = message.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                conversationState.context = null;
+                return `Nice to meet you, ${conversationState.userName}! How can I assist you today?`;
+            }
+
+            if (detectedKeywords.length === 0) {
+                return "I’m not sure how to help with that. Could you try asking something like 'How do I consult with a doctor?' or use the suggestions below?";
+            }
+
+            for (const keyword of detectedKeywords) {
+                switch (keyword) {
+                    case 'greeting':
+                        return conversationState.userName ? `Hello again, ${conversationState.userName}! How can I help you?` : 'Hi there! How can I assist you today?';
+                    case 'goodbye':
+                        return conversationState.userName ? `Goodbye, ${conversationState.userName}! Take care.` : 'See you later! Feel free to chat again if you need help.';
+                    case 'appointment':
+                        conversationState.context = 'appointment';
+                        conversationState.lastQuestion = message;
+                        return ['To book an appointment, visit the "Book Appointment" page.', 'Select a doctor, choose a time slot, and confirm your booking.', 'Would you like to know more about the process?'];
+                    case 'consultation':
+                        conversationState.context = 'consultation';
+                        conversationState.lastQuestion = message;
+                        return ['You can consult with a doctor either in-person or via video consultation.', 'For in-person, use the "Book Appointment" page. For video, select "Video Consultation" from services.', 'Would you like steps for booking a video consultation?'];
+                    case 'hours':
+                        return 'Our office hours are Monday-Friday: 9:00 AM - 5:00 PM, Saturday: 10:00 AM - 2:00 PM, Sunday: Closed.';
+                    case 'contact':
+                        return 'You can reach us at <strong>support@medisync.com</strong> or call <strong>+977 1-1234567</strong>.';
+                    case 'payment':
+                        return 'We accept credit/debit cards, PayPal, and select insurance plans. Check the payment section during booking.';
+                    case 'cancel':
+                        conversationState.context = 'cancel';
+                        return 'Yes, you can cancel or reschedule up to 24 hours before your appointment via your account dashboard. Need help with that?';
+                    case 'thanks':
+                        return conversationState.userName ? `You’re welcome, ${conversationState.userName}! Anything else I can do for you?` : 'My pleasure! How else can I assist?';
+                }
+            }
+
+            if (conversationState.context === 'appointment' && (message.includes('yes') || message.includes('more'))) {
+                return 'After selecting a slot, log in or sign up to finalize your booking. You’ll receive a confirmation email!';
+            } else if (conversationState.context === 'consultation' && (message.includes('yes') || message.includes('steps') || message.includes('video'))) {
+                return ['To book a video consultation, go to the "Video Consultation" section.', 'Choose a doctor, pick an available time, and ensure you have a stable internet connection.', 'You’ll get a link to join the call once confirmed!'];
+            } else if (conversationState.context === 'cancel' && (message.includes('yes') || message.includes('help'))) {
+                return 'Log into your account, go to "My Appointments," select the appointment, and choose "Cancel" or "Reschedule."';
+            }
+
+            return "I didn’t quite catch that. Could you clarify or ask something else?";
+        }
+
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('chatHistory')) {
+                addMessage("Welcome to MediSync Chat! How can I assist you today?", "bot");
+                saveMessage("Welcome to MediSync Chat! How can I assist you today?", "bot");
+            }
+        });
+    </script>
+</body>
+
+</html>
