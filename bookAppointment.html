@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - MediSync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css-styles/bookAppointment.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/icon.png" alt="Medisync Logo">
+            <a href="/indexLogin.html" style="text-decoration: none;">
+                <span>MediSync</span>
+            </a>
+        </div>
+        <nav>
+            <a href="/html/topDoctor.html">Top Doctors</a>
+            <a href="/html/bookAppointment.html" class="active">Book Appointment</a>
+            <a href="/html/package.html">Health Packages</a>
+            <a href="/html/contact.html">Contact</a>
+        </nav>
+        <div class="user-profile">
+            <div class="user-greeting">Hello, <span id="userName"></span>!</div>
+            <div class="user-avatar" id="avatarDropdown">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="/html/users/userDashboard.html" class="dropdown-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/html/users/editProfile.html" class="dropdown-item">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Edit Profile</span>
+                </a>
+                <a href="#" class="dropdown-item logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hospital-section">
+        <div class="hospital-header">
+            <h1>Book An Appointment at Hospitals</h1>
+            <div class="hospital-search">
+                <input type="text" id="searchInput" placeholder="Find Hospital" onkeyup="filterHospitals()">
+                <button onclick="filterHospitals()"><i class="fas fa-search"></i></button>
+                <button><i class="fas fa-chevron-left"></i></button>
+                <button><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="hospital-grid">
+            <div class="hospital-item" data-department="general">
+                <img src="/images/B-B-Hospital-Nepal.jpg" alt="B&B Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>B&B Hospital</h3>
+                    <p>Gwarko, Lalitpur</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('B&B Hospital', 'general')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="neurology">
+                <img src="/images/Star-Hospital.jpg" alt="Bir Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Bir Hospital</h3>
+                    <p>Kanti Path, Kathmandu</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Bir Hospital', 'neurology')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="orthopedics">
+                <img src="/images/Norvic-International-Hospital-Kathmandu.jpg" alt="T.U. Teaching Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>T.U. Teaching Hospital</h3>
+                    <p>Maharajgunj, Bagmati, Kathmandu</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('T.U. Teaching Hospital', 'orthopedics')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="general">
+                <img src="/images/Grande-International-Hospital.jpg" alt="Civil Service Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Civil Service Hospital</h3>
+                    <p>Min Bhawan, Kathmandu</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Civil Service Hospital', 'general')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="general">
+                <img src="/images/Om-Hospital-Research-Center.jpg" alt="Koshi Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Koshi Hospital</h3>
+                    <p>Biratnagar, Morang</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Koshi Hospital', 'general')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="cardiology">
+                <img src="/images/Nepal-Mediciti.jpg" alt="Manmohan Cardiothoracic">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Manmohan Cardiothoracic Vascular and Tra...</h3>
+                    <p>Maharajgunj, Kathmandu</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Manmohan Cardiothoracic Vascular and Transplant Center', 'cardiology')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="general">
+                <img src="/images/Nepal-Eye-Hospital.jpg" alt="Rapti Academy of Health Sciences">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Rapti Academy of Health Sciences</h3>
+                    <p>Ghorahi</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Rapti Academy of Health Sciences', 'general')">Book an Appointment</a>
+                </div>
+            </div>
+
+            <div class="hospital-item" data-department="general">
+                <img src="/css-styles/hospital.png" alt="Dhulikhel Hospital">
+                <button class="favorite"><i class="far fa-heart"></i></button>
+                <div class="carousel-arrows">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="hospital-info">
+                    <h3>Dhulikhel Hospital</h3>
+                    <p>Kathmandu University Hospital</p>
+                    <a href="#" class="book-button" onclick="bookAppointment('Dhulikhel Hospital', 'general')">Book an Appointment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="#">Home</a>
+                <a href="#">Company</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Patients</a>
+                <a href="#">Doctors</a>
+                <a href="#">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Book Hospital Appointment</a>
+                <a href="#">Video Consultation</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="www.facebook.com" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="www.twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="www.LinkedIn.com" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Contact us here</p>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2025. All Rights Reserved.</p>
+    </footer>
+
+    <div id="alertBox" class="alert"></div>
+
+
+</body>
+
+</html>
