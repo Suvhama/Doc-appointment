@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css-styles/style.css">
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <div class="logo">
+            <img src="images/icon.png" alt="Medisync Logo">
+            <a href="/indexLogin.html" style="text-decoration: none;">
+                <span>MediSync</span>
+            </a>
+        </div>
+        <nav>
+            <a href="/html/topDoctor.html">Top Doctors</a>
+            <a href="/html/bookAppointment.html" class="active">Book Appointment</a>
+            <a href="/html/package.html">Health Packages</a>
+            <a href="/html/contact.html">Contact</a>
+        </nav>
+        <div class="header-buttons">
+            <div class="login-dropdown">
+                <button class="login-button" onclick="toggleDropdown()">Log in <span class="arrow">▼</span></button>
+                <div class="dropdown-content">
+                    <div>
+                        <p>Patients</p>
+                        <a href="/html/users/userLogin.html">Log in</a>
+                    </div>
+                    <hr>
+                    <div>
+                        <p>Doctors</p>
+                        <a href="/html/doctors/doctorLogin.html">Log in</a>
+                    </div>
+                </div>
+            </div>
+            <a href="html/users/userSignUp.html" class="sign-up-button">Sign Up</a>
+        </div>
+    </header>
+    <!-- header ending -->
+
+    <!-- hero section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Your Health, Our Priority<br>Book with Ease</h1>
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-stethoscope"></i>
+                        <input type="text" class="search-input" placeholder="Search doctors, conditions, or procedures" id="mainSearchInput">
+                    </div>
+                    <button class="search-button" onclick="redirectToTopDoctors()">
+                        <i class="fas fa-search"></i> SEARCH
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- hero section end -->
+
+    <!-- how it works sections -->
+    <section class="how-it-works">
+        <h2>How The System Works? Hierarchical menu..</h2>
+        <p>Steps</p>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <i class="fas fa-user-md"></i>
+                <div class="step-line"></div>
+                <p>Find Doctor</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <i class="fas fa-calendar-alt"></i>
+                <div class="step-line"></div>
+                <p>Book a Appointment</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <i class="fas fa-credit-card"></i>
+                <div class="step-line"></div>
+                <p>Pay for Consultation</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <i class="fas fa-laptop"></i>
+                <div class="step-line"></div>
+                <p>Book an appointment</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <i class="fas fa-file-alt"></i>
+                <div class="step-line"></div>
+                <p>Get a report</p>
+            </div>
+        </div>
+    </section>
+    <!-- how it works ends -->
+
+    <!-- top doctor section -->
+    <section class="top-doctors">
+        <h2>Appointment With Top Doctors</h2>
+        <p>200+ experienced medical practitioners available for video consultation and appointment</p>
+        <a href="#" class="view-all-button">View All</a>
+        <div class="doctor-list">
+            <!-- Doctor 1 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status available">Available Now</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status not-available">Not Available</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="doctor-card">
+                <img src="images/doc.avif" alt="Doctor Image" />
+                <div class="doctor-details">
+                    <h3>Doctor: Sushar Bajracharya</h3>
+                    <p class="speciality_doc">Master Surgeonist</p>
+                    <div class="availability">
+                        <i class="far fa-clock"></i>
+                        <span>Availability:</span>
+                        <span class="status available">Available Now</span>
+                    </div>
+                    <button class="consult-now-button">Consult Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- top speciality section -->
+    <section class="top-specialities">
+        <h2>Top Searched By Specialities</h2>
+        <p>Consult with top doctor across specialties</p>
+        <a href="#" class="view-all-button">View All</a>
+        <div class="specialities-container">
+            <div class="speciality">
+                <i class="fas fa-eye"></i>
+                <p>Ophthalmology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-heart"></i>
+                <p>Cardiology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-lungs"></i>
+                <p>Pulmonology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-brain"></i>
+                <p>Neurology</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-bone"></i>
+                <p>Orthopedics</p>
+            </div>
+            <div class="speciality">
+                <i class="fas fa-stethoscope"></i>
+                <p>General Medicine</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- user feedback section -->
+    <section class="patient-feedback">
+        <h2>Feedback From Our Patients</h2>
+        <div class="feedback-container">
+            <div class="feedback-card">
+                <div class="profile-image">
+                    <img src="images/doc.avif" alt="Patient Profile">
+                </div>
+                <h3>Suvham Pandey</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>One of the best doctor i have visited so far.....</p>
+                <a href="#">Read More</a>
+            </div>
+
+            <div class="feedback-card">
+                <div class="profile-image">
+                    <img src="images/doc.avif" alt="Patient Profile">
+                </div>
+                <h3>Ranbir Singh</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>EAST OR WEST THIS DOCTOR BEST.....</p>
+                <a href="/html/topDoctor.html">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="#">Home</a>
+                <a href="#">Company</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Patients</a>
+                <a href="#">Doctors</a>
+                <a href="/backend/admin.php">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Book Hospital Appointment</a>
+                <a href="#">Video Consultation</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Contact us here</p>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2025. All Rights Reserved.</p>
+    </footer>
+
+    <!-- chat bot -->
+    <button class="chat-button" onclick="toggleChat()"><i class="fas fa-comment fa-3x" style="margin-right: 5px;"></i></button>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span>MediSync Chat</span>
+            <span class="close-chat" onclick="toggleChat()">×</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">Hello! How can I assist you today?</div>
+        </div>
+        <div class="chat-suggestions">
+            <button onclick="sendSuggestedMessage('How do I book an appointment?')">Book Appointment</button>
+            <button onclick="sendSuggestedMessage('What are your office hours?')">Office Hours</button>
+            <button onclick="sendSuggestedMessage('How do I contact support?')">Contact Support</button>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js">
+      
+    </script>
+</body>
+
+</html>
