@@ -1,5 +1,4 @@
 <?php
-
 include "doctorDB.php";
 
 // Log the request
@@ -22,12 +21,12 @@ session_start();
 
 // Check if the request method is either POST or GET
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Retrieve email and password from the request
+    // Retrieve email from the request
     $email = $_REQUEST['email'] ?? '';
 
     // Validate input
     if (empty($email)) {
-        echo json_encode(['success' => false, 'message' => 'Email and password are required.']);
+        echo json_encode(['success' => false, 'message' => 'Email is required.']);
         exit;
     }
 
@@ -35,26 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET
         echo json_encode(['success' => false, 'message' => 'Invalid email format.']);
         exit;
     }
-
-    // If validation passes, return a success response
-    // echo json_encode([
-    //     'success' => true,
-    //     'message' => 'Request successful.',
-    //     'email' => $email
-    // ]);
 } else {
     // Invalid request method
     echo json_encode(['success' => false, 'message' => 'Invalid request method. Only POST or GET is allowed.']);
+    exit;
 }
 
-// echo json_encode([
-//     'success' => true,
-//     'message' => 'Request successful.',
-//     'email' => $email
-// ]);
-
 // SELECT THE DATA OF THE DOCTOR FROM THE DATABASE
-$sql_select_doctor = "SELECT * FROM doctors WHERE email= ?";
+$sql_select_doctor = "SELECT * FROM doctors WHERE email = ?";
 $stmt = $connection->prepare($sql_select_doctor);
 
 if ($stmt) {
@@ -66,8 +53,7 @@ if ($stmt) {
     $result = $stmt->get_result();
 
     // Fetch and output the results
-    while ($row = $result->fetch_assoc()) {
-        // echo "\nDoctor Name: " . $row['first_name'];
+    if ($row = $result->fetch_assoc()) {
         $id = $row['doctor_id'];
         $firstName = $row['first_name'];
         $last_name = $row['last_name'];
@@ -75,26 +61,38 @@ if ($stmt) {
         $speciality = $row['speciality'];
         $qualification = $row['qualification'];
         $license = $row['license_number'];
+        $phone_number = $row['phone_number'];
+        $experience = $row['experience'];
+        $ticketPrice = $row['ticketPrice'];
+        $image = $row['image'];
+        $rating = $row['rating'];
+        $hospital = $row['hospital_affiliation'];
+
+        // Create an associative array
+        $doctorData = array(
+            'id' => $id,
+            'name' => $firstName . " " . $last_name,
+            'email' => $email,
+            'speciality' => $speciality,
+            'qualification' => $qualification,
+            'license' => $license,
+            'phone_number' => $phone_number,
+            'experience' => $experience,
+            'ticketPrice' => $ticketPrice,
+            'image' => $image,
+            'rating' => $rating,
+            'hospital' => $hospital
+        );
+
+        echo json_encode($doctorData);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No doctor found with this email.']);
     }
-
-    // Create an associative array
-    $doctorData = array(
-        'id' => $id,
-        'name' => $firstName . " " . $last_name,
-        'email' => $email,
-        'speciality' => $speciality,
-        'qualification' => $qualification,
-        'license' => $license
-    );
-
-    $jsonData = json_encode($doctorData);
-
-    echo $jsonData;
 
     // Close the statement
     $stmt->close();
 } else {
-    echo "\nError preparing statement: " . $connection->error;
+    echo json_encode(['success' => false, 'message' => 'Error preparing statement: ' . $connection->error]);
 }
 
 // Close the connection
