@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - MediSync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/icon.png" alt="MediSync Logo">
+            <span>MediSync</span>
+        </div>
+        <a href="doctorDashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/html/doctors/doctorAppointments.html"><i class="fas fa-calendar-alt"></i> Appointments</a>
+        <a href="doctorPatients.html"><i class="fas fa-user-injured"></i> Patients</a>
+        <a href="medicalRecords.html"><i class="fas fa-notes-medical"></i> Medical Records</a>
+        <a href="#" class="active"><i class="fas fa-cog"></i> Settings</a>
+        <div class="sidebar-footer">
+            <div class="doctor-quick-info">
+                <div class="doctor-avatar" id="sidebarAvatar"></div>
+                <div class="doctor-brief">
+                    <h4 id="footerName"></h4>
+                    <p id="footerSpeciality"></p>
+                </div>
+            </div>
+            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search settings...">
+            </div>
+            <div class="header-buttons">
+                <button class="icon-button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <div class="notification-bell">
+                    <button class="icon-button" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationCount">2</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h3>Notifications (<span id="notificationTotal">2</span>)</h3>
+                            <a href="#" onclick="clearNotifications()">Clear All</a>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <h4>New Appointment</h4>
+                                    <p>John Doe has requested an appointment for tomorrow at 10:00 AM</p>
+                                    <span class="notification-time">5 minutes ago</span>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-action-btn" onclick="markAsRead(this)">Mark as read</button>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon red">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <h4>Urgent Patient Message</h4>
+                                    <p>Robert Chen has sent you an urgent message regarding his medication</p>
+                                    <span class="notification-time">2 hours ago</span>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-action-btn" onclick="markAsRead(this)">Mark as read</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification-footer">
+                            <a href="#">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-dropdown">
+                    <button class="profile-button" onclick="toggleDropdown()">
+                        <div class="profile-avatar" id="headerAvatar"></div>
+                        <div class="profile-info">
+                            <h4 id="proName"></h4>
+                            <p id="proSpeciality"></p>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar" id="dropdownAvatar"></div>
+                            <h3 id="dropdownName"></h3>
+                            <p id="dropdownDetails"></p>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>My Schedule</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user-md"></i>
+                                <span>Medical License</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Account Settings</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-palette"></i>
+                                <span>Appearance</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="logout()" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="settings-container">
+            <div id="alertBox" class="alert"></div>
+            <h2>Edit Profile</h2>
+            <div class="form-group image-upload-group">
+                <div>
+                    <label for="doctorImage">Profile Image</label>
+                    <img id="imagePreview" class="image-preview" src="/Uploads/DoctorImages/default.jpg" alt="Profile Preview">
+                </div>
+                <div>
+                    <input type="file" id="doctorImage" accept="image/*" style="display: none;">
+                    <button class="upload-btn" onclick="document.getElementById('doctorImage').click()">Upload Image</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address delt</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="specialty">Specialty</label>
+                    <select id="specialty" disabled>
+                        <option value="neurology">Neurology</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="orthopedics">Orthopedics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="license">Medical License Number</label>
+                    <input type="text" id="license" disabled required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ticketPrice">Consultation Fee ($)</label>
+                    <input type="number" id="ticketPrice" min="0" step="0.01" required>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                <button class="action-btn btn-light" onclick="cancelChanges()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>
