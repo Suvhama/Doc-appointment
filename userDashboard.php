@@ -68,6 +68,7 @@ if ($stmt) {
         $firstName = $row['first_name'];
         $last_name = $row['last_name'];
         $email = $row['email'];
+        $phone = $row['phone_number'];
     }
 
     // Create an associative array
@@ -76,7 +77,8 @@ if ($stmt) {
         // 'name' => $firstName . " " . $last_name,
         'first_name' => $firstName,
         'last_name' => $last_name,
-        'email' => $email
+        'email' => $email,
+        'phone' => $phone
     );
 
     $jsonData = json_encode($doctorData);
