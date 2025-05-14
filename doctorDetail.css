@@ -1,0 +1,514 @@
+/* Header Section */
+
+header {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    padding: 20px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, padding 0.3s ease;
+    animation: headerReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes headerReveal {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+
+/* Logo Styles */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 60px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation: logoPulse 2s infinite ease-in-out;
+}
+
+.logo span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, #ffffff 0%, #e6f0fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background 0.4s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo:hover img {
+    transform: rotate(360deg) scale(1.1);
+}
+
+@keyframes logoPulse {
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    }
+    50% {
+        transform: scale(1.08) rotate(5deg);
+        box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+    }
+}
+
+
+/* Navigation Styles */
+
+nav {
+    display: flex;
+    gap: 35px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: relative;
+    padding: 8px 12px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: -100%;
+    background: #e6f0fa;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover::after {
+    left: 0;
+}
+
+nav a:hover {
+    color: #e6f0fa;
+    transform: translateY(-2px);
+}
+
+nav a:active::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+
+
+/* Header Buttons Styles */
+
+.header-buttons {
+    display: flex;
+    gap: 20px;
+    margin-right: 60px;
+}
+
+.header-buttons a {
+    padding: 10px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.header-buttons a:hover {
+    background: #ffffff;
+    color: #4a90e2;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+
+/* Login Section */
+
+.login-dropdown {
+    position: relative;
+}
+
+.login-button {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.login-button:hover {
+    background: #e6f0fa;
+    color: #4a90e2;
+    transform: scale(1.03);
+}
+
+.arrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e6f0fa;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    min-width: 180px;
+    padding: 12px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: dropdownFade 0.3s ease-out;
+}
+
+@keyframes dropdownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-dropdown.open .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, color 0.2s ease;
+    border-radius: 4px;
+}
+
+.dropdown-content a:hover {
+    background: #e6f0fa;
+    color: #4a90e2;
+}
+
+.dropdown-content p {
+    font-weight: 600;
+    margin: 0 0 8px;
+    padding: 0 12px;
+    color: #357abd;
+}
+
+.dropdown-content hr {
+    border: none;
+    border-top: 1px solid #e6f0fa;
+    margin: 8px 0;
+}
+
+
+/* Sign-Up Button */
+
+.sign-up-button {
+    background: linear-gradient(135deg, #e6f0fa 0%, #4a90e2 100%);
+    color: #ffffff;
+    border: none;
+}
+
+.sign-up-button:hover {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.5);
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+    .logo {
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+    nav {
+        margin: 15px 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .header-buttons {
+        flex-direction: column;
+        width: 100%;
+        margin-right: 0;
+        gap: 10px;
+    }
+    .header-buttons a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+    .login-dropdown {
+        width: 100%;
+    }
+    .login-button {
+        width: 100%;
+        justify-content: center;
+    }
+    .dropdown-content {
+        width: 100%;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+    }
+}
+
+
+/* Footer Section */
+
+footer {
+    background-color: #1e5aa3;
+    color: #fff;
+    padding: 3rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #e6f0fa;
+}
+
+.footer-section a {
+    display: block;
+    color: #ecf4ff;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #ffffff;
+}
+
+.footer-section p {
+    line-height: 1.6;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    color: #c9d8f0;
+}
+
+.social-links a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.social-links a i {
+    color: #ecf4ff;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover i {
+    color: #e6f0fa;
+}
+
+
+/* Responsive Footer */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-section {
+        text-align: center;
+    }
+}
+
+
+/* Doctor Card Styles (from previous updates) */
+
+.doctor-card {
+    display: flex;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 300px;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+}
+
+.doctor-card img {
+    width: 150px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doctor-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    flex: 1;
+}
+
+.doctor-info {
+    flex-grow: 1;
+}
+
+.speciality_doc {
+    color: #666;
+    margin: 5px 0;
+}
+
+.rating {
+    margin: 10px 0;
+    color: #f5a623;
+}
+
+.availability-status {
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.availability-status.available {
+    background-color: #e6ffe6;
+    color: #2e7d32;
+}
+
+.availability-status.not-available {
+    background-color: #ffe6e6;
+    color: #c62828;
+}
+
+.consult-now-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.consult-now-button:hover {
+    background-color: #0056b3;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ffd700;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+}
