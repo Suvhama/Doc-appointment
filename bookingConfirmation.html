@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - MediSync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            padding: 20px clamp(20px, 5vw, 40px);
+            position: fixed;
+            width: 100vw;
+            max-width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, padding 0.3s ease;
+            animation: headerReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes headerReveal {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+                filter: blur(5px);
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: 60px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            animation: logoPulse 2s infinite ease-in-out;
+        }
+        
+        .logo span {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #ffffff 0%, #E6F0FA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.4s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo:hover img {
+            transform: rotate(360deg) scale(1.1);
+        }
+        
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+            }
+            50% {
+                transform: scale(1.08) rotate(5deg);
+                box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+            }
+        }
+        
+        nav {
+            display: flex;
+            gap: 35px;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 12px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: -100%;
+            right: -100%;
+            background: #E6F0FA;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        nav a:hover::after {
+            left: 0;
+            right: 0;
+        }
+        
+        nav a:hover {
+            color: #E6F0FA;
+            transform: translateY(-2px);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            position: relative;
+        }
+        
+        .user-greeting {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            animation: dropdownSlide 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        
+        .dropdown-menu.active {
+            display: flex;
+        }
+        
+        .dropdown-item {
+            padding: 15px 20px;
+            color: #555;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            color: #4A90E2;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #F5F9FE;
+            color: #1E5AA3;
+        }
+        
+        .dropdown-item.logout:hover {
+            background-color: #FFF5F5;
+            color: #E53935;
+        }
+        
+        .dropdown-item.logout:hover i {
+            color: #E53935;
+        }
+        
+        @keyframes dropdownSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            text-align: center;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            padding: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 984px) {
+            .logo {
+                margin-left: 20px;
+            }
+            .header-buttons {
+                margin-right: 20px;
+            }
+            .hamburger {
+                margin-left: 40px;
+                display: block;
+                order: 1;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #357ABD;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            nav.active {
+                display: flex;
+                animation: slideDown 0.3s ease-out;
+            }
+            nav a {
+                padding: 12px 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            nav a:last-child {
+                border-bottom: none;
+            }
+            .user-profile {
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 1040px) {
+            .logo {
+                margin-left: 20px;
+            }
+            .header-buttons {
+                margin-right: 20px;
+            }
+            .hamburger {
+                margin-left: 450px;
+                margin-bottom: 5px;
+                display: block;
+                order: 1;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #357ABD;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            nav.active {
+                display: flex;
+                animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            nav a {
+                padding: 12px 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            nav a:last-child {
+                border-bottom: none;
+            }
+            .user-profile {
+                order: 2;
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        body {
+            margin: 0;
+            padding-top: 100px;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .confirmation-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 2px solid #4a90e2;
+            width: 100%;
+        }
+        
+        .confirmation-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .doctor-info,
+        .appointment-info,
+        .patient-info {
+            margin-bottom: 30px;
+        }
+        
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        
+        .doctor-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #4a90e2;
+        }
+        
+        .doctor-details {
+            flex: 1;
+        }
+        
+        .doctor-details h3 {
+            font-size: 20px;
+            color: #333;
+            margin: 0;
+        }
+        
+        .doctor-details p {
+            font-size: 16px;
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .doctor-details p i {
+            color: #2e7d32;
+            margin-right: 5px;
+        }
+        
+        .appointment-info {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        
+        .appointment-info div {
+            text-align: center;
+        }
+        
+        .appointment-info p {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+        }
+        
+        .patient-info form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .patient-info label {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .patient-info input,
+        .patient-info textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #555;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .patient-info textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .payment-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .payment-info p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .payment-options {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .payment-options img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cancel-button {
+            background: #fff;
+            color: #333;
+            border: 2px solid #d32f2f;
+        }
+        
+        .cancel-button:hover {
+            background: #d32f2f;
+            color: #fff;
+        }
+        
+        .next-button {
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: #fff;
+        }
+        
+        .next-button:hover {
+            background: linear-gradient(45deg, #357abd, #4a90e2);
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #f0f4f8;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-content h3 {
+            margin: 0 0 15px 0;
+            font-size: 20px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .modal-content p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .modal-content label {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .modal-content input[type="text"],
+        .modal-content input[type="email"],
+        .modal-content input[type="number"],
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .modal-content .card-info {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .modal-content .card-info input {
+            flex: 1;
+        }
+        
+        .modal-content .card-info img {
+            width: 50px;
+            position: absolute;
+            right: 15px;
+            top: 30px;
+        }
+        
+        .modal-content .save-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-content input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-content button:hover {
+            background: linear-gradient(45deg, #357abd, #4a90e2);
+            transform: scale(1.02);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        footer {
+            margin-top: 0;
+            background-color: #1E5AA3;
+            color: #fff;
+            padding: 20vh 0;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-section {
+            flex: 1 1 200px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #E6F0FA;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: #ECF4FF;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #ffffff;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: #C9D8F0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .social-links a i {
+            color: #ECF4FF;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover i {
+            color: #E6F0FA;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/icon.png" alt="Medisync Logo">
+            <a href="/indexLogin.html" style="text-decoration: none;">
+                <span>MediSync</span>
+            </a>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <nav>
+            <a href="/html/topDoctor.html">Top Doctors</a>
+            <a href="/html/bookAppointment.html" class="active">Book Appointment</a>
+            <a href="/html/package.html">Health Packages</a>
+            <a href="/html/contact.html">Contact</a>
+        </nav>
+
+        <div class="user-profile">
+            <div class="user-greeting">Hello, <span id="userName"></span>!</div>
+            <div class="user-avatar" id="avatarDropdown">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="/html/users/userDashboard.html" class="dropdown-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>My Dashboard</span>
+                </a>
+                <a href="/html/users/editProfile.html" class="dropdown-item">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Edit Profile</span>
+                </a>
+                <a href="#" class="dropdown-item logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="confirmation-container">
+        <h2>Booking Confirmation</h2>
+
+        <div class="doctor-info">
+            <img src="/images/docimage3.jpg" alt="Doctor girl" id="doctorImage">
+            <div class="doctor-details">
+                <h3 id="doctorName">Dr. Rashi Maharjan</h3>
+                <p><i class="fas fa-stethoscope"></i><span id="specialty">Surgeon</span></p>
+                <p><i class="fas fa-briefcase"></i>Experience: <span id="experience">12 years</span></p>
+            </div>
+        </div>
+
+        <div class="appointment-info">
+            <div>
+                <p><strong>Date</strong></p>
+                <p id="appointmentDate">2025/5/7</p>
+            </div>
+            <div>
+                <p><strong>Consultation Time</strong></p>
+                <p id="consultationTime">9:00 AM</p>
+            </div>
+            <div>
+                <p><strong>Token No.</strong></p>
+                <p id="tokenNo">14567892</p>
+            </div>
+            <div>
+                <p><strong>Consultation Fee</strong></p>
+                <p id="consultationFee">$3000</p>
+            </div>
+        </div>
+
+        <div class="patient-info">
+            <h3>Patient Information</h3>
+            <form id="patientForm">
+                <label for="patientName">Full Name:</label>
+                <input type="text" id="patientName" name="patientName" required>
+
+                <label for="patientAge">Age:</label>
+                <input type="number" id="patientAge" name="patientAge" required>
+
+                <label for="patientMobile">Mobile Number:</label>
+                <input type="tel" id="patientMobile" name="patientMobile" required>
+
+                <label for="patientEmail">Email:</label>
+                <input type="email" id="patientEmail" name="patientEmail" required>
+
+                <label for="patientWeight">Weight (kg):</label>
+                <input type="text" id="patientWeight" name="patientWeight">
+
+                <label for="patientHeight">Height (cm):</label>
+                <input type="text" id="patientHeight" name="patientHeight">
+
+                <label for="patientReason">Reason for Appointment:</label>
+                <textarea id="patientReason" name="patientReason"></textarea>
+            </form>
+        </div>
+
+        <div class="payment-info">
+            <p>Payment Amount: <span id="paymentAmount">$3000</span></p>
+        </div>
+
+        <div class="buttons">
+            <button class="cancel-button" onclick="window.history.back()">Cancel</button>
+            <button class="next-button" onclick="showPaymentModal()">Next</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="#">Home</a>
+                <a href="#">Company</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Patients</a>
+                <a href="#">Doctors</a>
+                <a href="#">Admin</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Book Hospital Appointment</a>
+                <a href="#">Video Consultation</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p>Contact us here</p>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2025. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">×</span>
+            <h3>Payment Amount</h3>
+            <p id="modalPaymentAmount">$3000</p>
+            <h3>Payment Details</h3>
+            <form id="paymentForm">
+                <label for="paymentEmail">Email:</label>
+                <input type="email" id="paymentEmail" name="paymentEmail" required autocomplete="off">
+
+                <h3>Card Information</h3>
+                <div class="card-info">
+                    <div style="flex: 2;">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="4242 4242 4242 4242" required autocomplete="off">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="expiryDate">Expiry Date:</label>
+                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required autocomplete="off">
+                    </div>
+                    <div style="flex: 1; position: relative;">
+                        <label for="cvv">CVV:</label>
+                        <input type="number" id="cvv" name="cvv" placeholder="123" required autocomplete="off">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa" style="width: 50px; position: absolute; right: -5px; top: -5px;">
+                    </div>
+                </div>
+
+                <label for="cardName">Name on Card:</label>
+                <input type="text" id="cardName" name="cardName" placeholder="Enter name on card" required style="background-color: #fffacd;" autocomplete="off">
+
+                <label for="password">Confirm Password:</label>
+                <input type="password" id="password" name="password" required autocomplete="off">
+
+                <div class="save-info">
+                    <input type="checkbox" id="saveInfo" name="saveInfo">
+                    <label for="saveInfo">Securely save my information for future payments</label>
+                </div>
+
+                <button type="button" onclick="confirmPayment()">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <script>
+        function getUserDetails() {
+            const email = localStorage.getItem('email');
+            console.log("Fetching details for email:", email);
+
+            if (!email) {
+                window.location.href = '/html/users/userLogin.html';
+                return;
+            }
+
+            fetch(`http://localhost/Medisync/backend/userDashboard.php?email=${email}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        console.log("User data received:", data);
+                        document.getElementById("userName").textContent = data.first_name || "User";
+                    } else {
+                        console.log("No user data found or error in response");
+                        document.getElementById("userName").textContent = "User";
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                    document.getElementById("userName").textContent = "User";
+                    setTimeout(() => {
+                        window.location.href = '/html/users/userLogin.html';
+                    }, 2000);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            getUserDetails();
+        });
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+
+            document.getElementById('doctorName').textContent = params.get('doctorName') || 'Dr. Rashi Maharjan';
+            document.getElementById('specialty').textContent = params.get('specialty') || 'Surgeon';
+            document.getElementById('experience').textContent = params.get('experience') || '12 years';
+            document.getElementById('appointmentDate').textContent = params.get('date') || '2025/5/7';
+            document.getElementById('consultationTime').textContent = params.get('time') || '9:00 AM';
+            document.getElementById('tokenNo').textContent = params.get('tokenNo') || '14567892';
+            document.getElementById('consultationFee').textContent = `$${params.get('fee') || '3000'}`;
+            document.getElementById('paymentAmount').textContent = `$${params.get('fee') || '3000'}`;
+            document.getElementById('modalPaymentAmount').textContent = `$${params.get('fee') || '3000'}`;
+            document.getElementById('patientName').value = params.get('patientName') || '';
+            document.getElementById('patientAge').value = params.get('patientAge') || '';
+            document.getElementById('patientMobile').value = params.get('patientMobile') || '';
+            document.getElementById('patientEmail').value = params.get('patientEmail') || '';
+            document.getElementById('patientWeight').value = params.get('patientWeight') || '';
+            document.getElementById('patientHeight').value = params.get('patientHeight') || '';
+            document.getElementById('patientReason').value = params.get('patientReason') || '';
+            document.getElementById('paymentEmail').value = '';
+            document.getElementById('cardName').value = params.get('patientName') || '';
+        };
+
+        document.getElementById('avatarDropdown').addEventListener('click', function() {
+            document.getElementById('userDropdown').classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+            const userProfile = document.querySelector('.user-profile');
+            const dropdown = document.getElementById('userDropdown');
+            if (!userProfile.contains(event.target) && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = `alert alert-${type}`;
+            alertBox.style.display = 'block';
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            fetch('/backend/logout.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.success) {
+                        localStorage.removeItem('email');
+                        showAlert('Logout successful!', 'success');
+                        setTimeout(() => {
+                            window.location.href = '/index.html';
+                        }, 1000);
+                    } else {
+                        showAlert(data.message || 'Logout failed', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    localStorage.removeItem('email');
+                    showAlert('Logging out...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/index.html';
+                    }, 1000);
+                });
+        });
+
+        function showPaymentModal() {
+            const form = document.getElementById('patientForm');
+            if (form.checkValidity()) {
+                const paymentAmount = document.getElementById('paymentAmount').textContent;
+                document.getElementById('modalPaymentAmount').textContent = paymentAmount;
+                document.getElementById('paymentModal').style.display = 'block';
+            } else {
+                form.reportValidity();
+            }
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function confirmPayment() {
+            const paymentForm = document.getElementById('paymentForm');
+            if (!paymentForm.checkValidity()) {
+                paymentForm.reportValidity();
+                return;
+            }
+
+            const email = document.getElementById('paymentEmail').value;
+            const password = document.getElementById('password').value;
+
+            // Verify password with backend
+            fetch('http://localhost/Medisync/backend/verifyPassword.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    }),
+                    credentials: 'include'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Password verification failed: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Password verified, collect appointment data
+                        const appointmentData = {
+                            doctor_name: document.getElementById('doctorName').textContent,
+                            specialty: document.getElementById('specialty').textContent,
+                            experience: document.getElementById('experience').textContent,
+                            appointment_date: document.getElementById('appointmentDate').textContent,
+                            consultation_time: document.getElementById('consultationTime').textContent,
+                            token_no: document.getElementById('tokenNo').textContent,
+                            consultation_fee: parseFloat(document.getElementById('consultationFee').textContent.replace('$', '')),
+                            patient_name: document.getElementById('patientName').value,
+                            patient_age: parseInt(document.getElementById('patientAge').value) || 0,
+                            patient_mobile: document.getElementById('patientMobile').value,
+                            patient_email: document.getElementById('patientEmail').value,
+                            patient_weight: document.getElementById('patientWeight').value || null,
+                            patient_height: document.getElementById('patientHeight').value || null,
+                            patient_reason: document.getElementById('patientReason').value || null,
+                            payment_email: document.getElementById('paymentEmail').value
+                        };
+
+                        // Save appointment to backend
+                        return fetch('http://localhost/Medisync/backend/saveAppointment.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(appointmentData),
+                                credentials: 'include'
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`Failed to save appointment: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(saveData => {
+                                if (saveData.success) {
+                                    // Show success message and alert
+                                    showAlert('Payment and appointment booked successfully!', 'success');
+                                    alert(`Your appointment has been booked!\n\nDoctor: ${appointmentData.doctor_name} (${appointmentData.specialty}, ${appointmentData.experience})\nDate: ${appointmentData.appointment_date}\nTime: ${appointmentData.consultation_time}\nToken No: ${appointmentData.token_no}\nFee: $${appointmentData.consultation_fee}\nPatient: ${appointmentData.patient_name}\nEmail: ${appointmentData.payment_email}`);
+                                    closePaymentModal();
+                                } else {
+                                    showAlert(saveData.message || 'Failed to save appointment. Please try again.', 'danger');
+                                }
+                            });
+                    } else {
+                        showAlert(data.message || 'Invalid password. Please try again.', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during payment process:', error);
+                    showAlert('Error processing payment or saving appointment. Please try again.', 'danger');
+                });
+        }
+
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
