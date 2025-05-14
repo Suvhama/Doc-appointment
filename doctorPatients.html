@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients - MediSync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/css-styles//doctors/doctorPatient.css">
+</head>
+
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/icon.png" alt="MediSync Logo">
+            <span>MediSync</span>
+        </div>
+        <a href="doctorDashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/html/doctors/doctorAppointments.html"><i class="fas fa-calendar-alt"></i> Appointments</a>
+        <a href="#" class="active"><i class="fas fa-user-injured"></i> Patients</a>
+        <a href="medicalRecords.html"><i class="fas fa-notes-medical"></i> Medical Records</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        <div class="sidebar-footer">
+            <div class="doctor-quick-info">
+                <div class="doctor-avatar" id="sidebarAvatar"></div>
+                <div class="doctor-brief">
+                    <h4 id="footerName"></h4>
+                    <p id="footerSpeciality"></p>
+                </div>
+            </div>
+            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search patients..." onkeyup="filterPatients()">
+            </div>
+            <div class="header-buttons">
+                <button class="icon-button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <div class="notification-bell">
+                    <button class="icon-button" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationCount">0</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h3>Notifications (<span id="notificationTotal">0</span>)</h3>
+                            <a href="#" onclick="clearNotifications()">Clear All</a>
+                        </div>
+                        <div class="notification-list" id="notificationList">
+                            <!-- Notifications populated dynamically -->
+                        </div>
+                        <div class="notification-footer">
+                            <a href="#">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-dropdown">
+                    <button class="profile-button" onclick="toggleDropdown()">
+                        <div class="profile-avatar" id="headerAvatar"></div>
+                        <div class="profile-info">
+                            <h4 id="proName"></h4>
+                            <p id="proSpeciality"></p>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar" id="dropdownAvatar"></div>
+                            <h3 id="dropdownName"></h3>
+                            <p id="dropdownDetails"></p>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>My Schedule</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user-md"></i>
+                                <span>Medical License</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Account Settings</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-palette"></i>
+                                <span>Appearance</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="logout()" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="patients-section">
+            <h2>Patients</h2>
+            <table class="patients-table" id="patientsTable">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Appointment ID</th>
+                        <th>Date & Time</th>
+                        <th>Message/Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="patientsTableBody">
+                    <!-- Patient data populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal for patient details -->
+        <div class="modal" id="patientModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Patient Details</h3>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Patient details populated dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn btn-light" onclick="closeModal()">Close</button>
+                    <button class="action-btn btn-primary" onclick="viewFullProfile()">View Full Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#">Home</a>
+                    <a href="#">About MediSync</a>
+                    <a href="#">Our Team</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#">Patients</a>
+                    <a href="#">Doctors</a>
+                    <a href="#">Admin</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <a href="#">Book Hospital Appointment</a>
+                    <a href="#">Video Consultation</a>
+                    <a href="#">Emergency Services</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p style="margin-top: 15px;">Contact us: support@medisync.com</p>
+                </div>
+            </div>
+            <p class="copyright">Copyright © 2025 MediSync. All Rights Reserved.</p>
+        </footer>
+    </div>
+    <script src="doctorPatients.js"></script>
+</body>
+
+</html>
